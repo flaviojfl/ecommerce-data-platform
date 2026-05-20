@@ -1,0 +1,32 @@
+services:
+  spark-master:
+    image: apache/spark:3.5.3
+    container_name: spark-master
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
+    environment:
+      - SPARK_NO_DAEMONIZE=true
+    ports:
+      - "7077:7077"   # comunicação Spark (driver -> master)
+      - "8080:8080"   # Spark Master Web UI
+    networks:
+      - data-platform
+
+  spark-worker:
+    image: apache/spark:3.5.3
+    container_name: spark-worker
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker
+      spark://spark-master:7077 --cores 2 --memory 2g
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_NO_DAEMONIZE=true
+    ports:
+      - "8081:8081"   # Spark Worker Web UI
+    networks:
+      - data-platform
+
+networks:
+  data-platform:
+    driver: bridge
