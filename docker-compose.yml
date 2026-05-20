@@ -7,8 +7,8 @@ services:
     environment:
       - SPARK_NO_DAEMONIZE=true
     ports:
-      - "7077:7077"   # comunicação Spark (driver -> master)
-      - "8080:8080"   # Spark Master Web UI
+      - "7077:7077"
+      - "8080:8080"
     networks:
       - data-platform
 
@@ -23,9 +23,27 @@ services:
     environment:
       - SPARK_NO_DAEMONIZE=true
     ports:
-      - "8081:8081"   # Spark Worker Web UI
+      - "8081:8081"
     networks:
       - data-platform
+
+  spark-client:
+    image: apache/spark:3.5.3
+    container_name: spark-client
+    depends_on:
+      - spark-master
+      - spark-worker
+    environment:
+      - SPARK_NO_DAEMONIZE=true
+    volumes:
+      - ./jobs:/app/jobs
+      - ./utils:/app/utils
+      - ./data:/app/data
+    working_dir: /app
+    networks:
+      - data-platform
+    # Mantém o container vivo pra você rodar comandos nele
+    command: tail -f /dev/null
 
 networks:
   data-platform:
