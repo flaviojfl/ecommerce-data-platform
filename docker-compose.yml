@@ -100,6 +100,32 @@ services:
     networks:
       - data-platform
 
+  jupyter:
+    image: jupyter/pyspark-notebook:spark-3.5.0
+    container_name: jupyter
+    depends_on:
+      - spark-master
+      - spark-worker
+      - minio
+      - mysql
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    ports:
+      - "8888:8888"
+      - "4041:4040"
+    volumes:
+      - ./notebooks:/home/jovyan/work/notebooks
+      - ./jobs:/home/jovyan/work/jobs
+      - ./utils:/home/jovyan/work/utils
+    networks:
+      - data-platform
+    command: start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''
+
 networks:
   data-platform:
     driver: bridge
