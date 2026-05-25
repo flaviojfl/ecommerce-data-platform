@@ -10,3 +10,5 @@ faker==30.3.0
 pytest==8.3.3
 ruff==0.6.9
 black==24.10.0
+sqlalchemy==2.0.35
+pymysql==1.1.1
