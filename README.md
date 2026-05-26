@@ -1,19 +1,19 @@
-# 🛒 E-commerce Data Platform
+# E-commerce Data Platform
 
-> End-to-end data engineering platform processing Brazilian e-commerce data with PySpark, implementing the medallion architecture (Bronze → Silver → Gold), real-time streaming, and pipeline orchestration — fully containerized with Docker.
+> End-to-end data engineering platform processing Brazilian e-commerce data with PySpark, implementing the medallion architecture (Bronze to Silver to Gold), real-time streaming, and pipeline orchestration — fully containerized with Docker.
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![Spark](https://img.shields.io/badge/Apache%20Spark-3.5.3-orange)
 ![Docker](https://img.shields.io/badge/Docker-Compose-blue)
 ![Kafka](https://img.shields.io/badge/Apache%20Kafka-3.8-black)
 
-## 📖 Overview
+## Overview
 
-This project simulates the complete data infrastructure of an e-commerce company. Data originates in a transactional MySQL database and partner CSV files, flows through an Apache Spark cluster, and lands in a MinIO data lake organized in the medallion architecture. It includes both **batch** processing (the main pipeline) and **streaming** (real-time clickstream events via Kafka), all orchestrated and reproducible with a single command.
+This project simulates the complete data infrastructure of an e-commerce company. Data originates in a transactional MySQL database and partner CSV files, flows through an Apache Spark cluster, and lands in a MinIO data lake organized in the medallion architecture. It includes both batch processing (the main pipeline) and streaming (real-time clickstream events via Kafka), all orchestrated and reproducible with a single command.
 
 Built using the real [Brazilian E-commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) (~100k orders).
 
-## 🏗️ Architecture
+## Architecture
 
 ```mermaid
 flowchart LR
@@ -39,7 +39,7 @@ flowchart LR
 
 Full architecture details in [docs/architecture.md](docs/architecture.md).
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -52,15 +52,15 @@ Full architecture details in [docs/architecture.md](docs/architecture.md).
 | Infrastructure | Docker Compose |
 | Language | Python 3.11 |
 
-## ✨ Features
+## Features
 
 - **Multi-source ingestion** — reads from a relational database (JDBC) and flat files (CSV)
-- **Medallion architecture** — Bronze (raw) → Silver (cleaned & typed) → Gold (business metrics)
+- **Medallion architecture** — Bronze (raw), Silver (cleaned and typed), Gold (business metrics)
 - **Real-time streaming** — synthetic clickstream events through Kafka, processed with Spark Structured Streaming and time-window aggregations
-- **Orchestrated pipeline** — single command runs the full Bronze → Silver → Gold flow with error handling
+- **Orchestrated pipeline** — single command runs the full Bronze to Gold flow with error handling
 - **Fully containerized** — the entire stack (Spark cluster, MinIO, MySQL, Kafka, Jupyter) runs with `docker compose up`
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 ├── docker/mysql/init/      # MySQL init scripts
@@ -79,7 +79,7 @@ Full architecture details in [docs/architecture.md](docs/architecture.md).
 └── run_job.ps1             # Spark job runner
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -91,7 +91,7 @@ Full architecture details in [docs/architecture.md](docs/architecture.md).
 
 1. Clone and enter the repo:
 ```bash
-   git clone https://github.com/flaviojfl/ecommerce-data-platform.git
+   git clone https://github.com/SEU_USUARIO/ecommerce-data-platform.git
    cd ecommerce-data-platform
 ```
 
@@ -126,7 +126,7 @@ Full architecture details in [docs/architecture.md](docs/architecture.md).
 python -m scripts.run_pipeline
 ```
 
-This runs the full flow: Bronze (MySQL + CSV) → Silver → Gold.
+This runs the full flow: Bronze (MySQL + CSV) to Silver to Gold.
 
 ### Running streaming (optional)
 
@@ -144,7 +144,7 @@ docker compose exec -e PYTHONPATH=/app spark-client /opt/spark/bin/spark-submit 
   /app/jobs/streaming/consume_clickstream.py
 ```
 
-## 🌐 Services
+## Services
 
 | Service | URL | Notes |
 |---------|-----|-------|
@@ -155,13 +155,13 @@ docker compose exec -e PYTHONPATH=/app spark-client /opt/spark/bin/spark-submit 
 | MySQL | localhost:3307 | transactional source |
 | Kafka | localhost:29092 | event streaming |
 
-## 🗂️ Data Layers (Medallion)
+## Data Layers (Medallion)
 
 - **Bronze** (`s3a://lakehouse/bronze/`) — raw data as ingested, with ingestion metadata. No transformations.
 - **Silver** (`s3a://lakehouse/silver/`) — deduplicated, type-cast (timestamps, standardized strings), validated.
 - **Gold** (`s3a://lakehouse/gold/`) — business-ready aggregations (orders by status, orders by state, streaming metrics).
 
-## 📋 Roadmap
+## Roadmap
 
 - [x] Phase 0: Project setup
 - [x] Phase 1: Docker environment
@@ -172,6 +172,6 @@ docker compose exec -e PYTHONPATH=/app spark-client /opt/spark/bin/spark-submit 
 - [x] Phase 6: Pipeline orchestration
 - [ ] Future: Apache Airflow, Delta Lake, dbt, CI/CD
 
-## 📄 License
+## License
 
 MIT
