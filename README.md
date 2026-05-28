@@ -175,8 +175,6 @@ docker compose exec -e PYTHONPATH=/app spark-client /opt/spark/bin/spark-submit 
 ### Spark Cluster — completed applications across pipeline stages
 ![Spark Master UI](docs/images/spark.png)
 
-### Pipeline orchestrator execution
-![Pipeline run](docs/images/preview.png)
 
 ## Roadmap
 
