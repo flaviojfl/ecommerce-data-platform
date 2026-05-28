@@ -161,6 +161,22 @@ docker compose exec -e PYTHONPATH=/app spark-client /opt/spark/bin/spark-submit 
 - **Silver** (`s3a://lakehouse/silver/`) — deduplicated, type-cast (timestamps, standardized strings), validated.
 - **Gold** (`s3a://lakehouse/gold/`) — business-ready aggregations (orders by status, orders by state, streaming metrics).
 
+
+
+## Screenshots
+
+### Data Lake — Medallion architecture in MinIO
+![Medallion layers](docs/images/minio.png)
+
+### Bronze layer — 9 ingested tables (MySQL + CSV sources)
+![Bronze tables](docs/images/bronze.png)
+
+### Spark Cluster — completed applications across pipeline stages
+![Spark Master UI](docs/images/spark.png)
+
+### Pipeline orchestrator execution
+![Pipeline run](docs/images/preview.png)
+
 ## Roadmap
 
 - [x] Phase 0: Project setup
