@@ -39,6 +39,7 @@ flowchart LR
 
 Full architecture details in [docs/architecture.md](docs/architecture.md).
 
+For the rationale behind the key technical choices, see [docs/decisions.md](docs/decisions.md).
 ## Tech Stack
 
 | Layer | Technology |
