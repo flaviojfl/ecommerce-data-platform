@@ -22,6 +22,8 @@ services:
       - spark-master
     environment:
       - SPARK_NO_DAEMONIZE=true
+    volumes:
+      - ./data:/app/data
     ports:
       - "8081:8081"
     networks:
